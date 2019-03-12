@@ -278,6 +278,8 @@ export default {
 .buttons-v-img {
   margin-right: 10px;
   text-align: right;
+  white-space: nowrap;
+  width: auto;
 }
 
 .buttons-v-img span path {
