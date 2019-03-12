@@ -56,7 +56,7 @@
         <img
           v-for="(thumbnail, index) in images"
           :key="index"
-          :src="thumbs[index]!=undefined && thumbs[index]!='' ? thzumbs[index] : thumbnail"
+          :src="thumbs[index]!=undefined && thumbs[index]!='' ? thumbs[index] : thumbnail"
           @click="select(index)"
           :class="{'is-selected': currentImageIndex == index}">
       </div>
@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       images: [],
+      thumbs: [],
       titles: [],
       sourceButtons: [],
       visibleUI: true,
