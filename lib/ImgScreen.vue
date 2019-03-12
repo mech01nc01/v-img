@@ -21,6 +21,8 @@
           {{ titles[currentImageIndex] }}
         </span>
         <div class="buttons-v-img">
+	  <span @click="rotateLeft">⤿</span>
+	  <span @click="rotateRight">⤾</span>
           <span v-if="sourceButtons[currentImageIndex]">
             <a :href="images[currentImageIndex]" target="_blank">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 475.078 475.077" style="enable-background:new 0 0 475.078 475.077;" xml:space="preserve">
@@ -62,7 +64,9 @@
       </div>
 
       <div class="content-v-img">
-        <img :src="images[currentImageIndex]!=undefined && images[currentImageIndex]!='' ? images[currentImageIndex] : thumbs[currentImageIndex]" @click="next">
+        <img :src="images[currentImageIndex]!=undefined && images[currentImageIndex]!='' ? images[currentImageIndex] : thumbs[currentImageIndex]" 
+	     :style="rotationStyle"
+	     @click="next">
       </div>
 
     </div>
@@ -83,6 +87,7 @@ export default {
       uiTimeout: null,
       handlers: {},
       thumbnails: false,
+      rotationIndex: 0
     };
   },
   watch: {
@@ -110,6 +115,7 @@ export default {
         document.querySelector('body').classList.remove('body-fs-v-img');
         this.images = [];
         this.currentImageIndex = 0;
+	this.rotationIndex = 0;
         this.closed = true;
       }
     },
@@ -121,10 +127,12 @@ export default {
         } else {
           this.currentImageIndex = 0;
         }
+	this.rotationIndex = 0;
         this.fireChangeEvent();
       }
     },
     select(selectedImage) {
+      this.rotationIndex = 0;
       this.currentImageIndex = selectedImage;
     },
     prev() {
@@ -135,8 +143,17 @@ export default {
         } else {
           this.currentImageIndex = this.images.length - 1;
         }
+	this.rotationIndex = 0;
         this.fireChangeEvent();
       }
+    },
+    rotateLeft()
+    {
+      this.rotationIndex--;
+    },
+    rotateRight()
+    {
+      this.rotationIndex++;
     },
     showUI() {
       if (!this.closed) {
@@ -149,6 +166,20 @@ export default {
         }, 3500);
       }
     },
+  },
+  computed:
+  {
+    rotationStyle()
+    {
+	let deg = this.rotationIndex * 90;
+	let style = [];
+	style.push("-moz-transform: rotate(" + deg + "deg);");
+	style.push("-ms-transform: rotate(" + deg + "deg);");
+	style.push("-o-transform: rotate(" + deg + "deg);");
+	style.push("-webkit-transform: rotate(" + deg + "deg);");
+	style.push("transform: rotate(" + deg + "deg);");
+	return style.join("");
+    }
   },
   created() {
     window.addEventListener('keyup', e => {
@@ -203,6 +234,8 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-transition: transform .5s !important;
+  transition: transform .5s !important;
 }
 
 .header-v-img,
