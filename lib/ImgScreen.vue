@@ -56,13 +56,13 @@
         <img
           v-for="(thumbnail, index) in images"
           :key="index"
-          :src="thumbnail"
+          :src="thumbs[index]!=undefined && thumbs[index]!='' ? thzumbs[index] : thumbnail"
           @click="select(index)"
           :class="{'is-selected': currentImageIndex == index}">
       </div>
 
       <div class="content-v-img">
-        <img :src="images[currentImageIndex]" @click="next">
+        <img :src="images[currentImageIndex]!=undefined && images[currentImageIndex]!='' ? images[currentImageIndex] : thumbs[currentImageIndex]" @click="next">
       </div>
 
     </div>
