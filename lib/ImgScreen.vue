@@ -216,14 +216,14 @@ export default {
   align-items: center;
 }
 
-.header-v-img {
-  justify-content: space-between;
-}
-
 .footer-v-img {
   bottom: 0;
-  justify-content: center;
-  height: 70px;
+  height: auto;
+	padding: 5px;
+	text-align: center;
+	display: block;
+	/* flex leads to not visible items at the beginning if you have more items */
+	white-space: nowrap;
   /* scrolling thumbnails on mobile */
   overflow-x: auto;
 }
