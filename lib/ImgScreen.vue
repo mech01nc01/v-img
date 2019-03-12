@@ -216,6 +216,10 @@ export default {
   align-items: center;
 }
 
+.header-v-img {
+  justify-content: space-between;
+}
+
 .footer-v-img {
   bottom: 0;
   height: auto;
